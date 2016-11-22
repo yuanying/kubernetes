@@ -61,7 +61,7 @@ parameters:
     description: OpenStack Region Name
     default: false
 
-  os_tenant_id:
+  os_tenant_name:
     type: string
     description: OpenStack Tenant ID
     default: false
@@ -216,7 +216,8 @@ resources:
             "$OS_USERNAME": {get_param: os_username}
             "$OS_PASSWORD": {get_param: os_password}
             "$OS_REGION_NAME": {get_param: os_region_name}
-            "$OS_TENANT_ID": {get_param: os_tenant_id}
+            "$OS_TENANT_NAME": {get_param: os_tenant_name}
+            "$HOSTNAME_OVERRIDE": {get_attr: [kube_minion_eth0, fixed_ips, 0, ip_address]}
             "$role": "kubernetes-pool"
             "$cluster_cidr": {get_param: cluster_cidr}
 
@@ -251,6 +252,8 @@ resources:
   server_name_post_fix:
     type: OS::Heat::RandomString
     properties:
+      # Unable to register node "kube-stack-node-4QbTlumx" with API server: Node "kube-stack-node-4QbTlumx" is invalid: metadata.name: Invalid value: "kube-stack-node-4QbTlumx": must match the regex [a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)* (e.g. 'example.com')
+      character_classes: [{'class': 'lowercase', 'min': 1}]
       length: 8
 
   kube_minion:

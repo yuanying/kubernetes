@@ -26,6 +26,7 @@ write_files:
         master_extra_sans: "DNS:kubernetes,DNS:kubernetes.default,DNS:kubernetes.default.svc,DNS:kubernetes.default.svc.cluster.local,DNS:kubernetes-master"
         keep_host_etcd: true
         kube_user: $KUBE_USER
+        hostname_override: $HOSTNAME_OVERRIDE
   - path: /srv/kubernetes/openstack.conf
     content: |
       [Global]
@@ -33,7 +34,7 @@ write_files:
       username=$OS_USERNAME
       password=$OS_PASSWORD
       region=$OS_REGION_NAME
-      tenant-id=$OS_TENANT_ID
+      tenant-name=$OS_TENANT_NAME
       [LoadBalancer]
       lb-version=$LBAAS_VERSION
       subnet-id=$SUBNET_ID

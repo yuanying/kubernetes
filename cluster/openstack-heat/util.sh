@@ -131,6 +131,7 @@ function upload-resources() {
 #   KUBERNETES_KEYPAIR_NAME
 #   CLIENT_PUBLIC_KEY_PATH
 function add-keypair() {
+  echo "add-keypair"
   local status=$(nova keypair-show ${KUBERNETES_KEYPAIR_NAME})
   if [[ ! $status ]]; then
     nova keypair-add ${KUBERNETES_KEYPAIR_NAME} --pub-key ${CLIENT_PUBLIC_KEY_PATH}
@@ -217,7 +218,7 @@ function run-heat-script() {
       --parameter os_username=${OS_USERNAME} \
       --parameter os_password=${OS_PASSWORD} \
       --parameter os_region_name=${OS_REGION_NAME} \
-      --parameter os_tenant_id=${OS_TENANT_ID} \
+      --parameter os_tenant_name=${OS_TENANT_NAME} \
       --parameter enable_proxy=${ENABLE_PROXY} \
       --parameter ftp_proxy="${FTP_PROXY}" \
       --parameter http_proxy="${HTTP_PROXY}" \
